@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include<cctype>
 #include <fstream>
 
 
@@ -55,11 +56,15 @@ class Analyzer{
 
 };
 
-
-void show_texts(std::vector<Analyzer>& show_text);
-void show_menu(std::vector<Analyzer>& show_menu);
-void save_texts(std::vector<Analyzer>& save_texts);
-void load_texts(std::vector<Analyzer>& load_texts);
+void show_texts(std::vector<Analyzer>& texts);
+void show_menu(std::vector<Analyzer>& texts);
+void save_text(std::vector<Analyzer>& texts);
+void load_texts(std::vector<Analyzer>& texts);
+void create_texts(std::vector<Analyzer>& texts);
+void show_information(std::vector<Analyzer>& texts);
+void edit_message(std::vector<Analyzer>& texts);
+void delete_message(std::vector<Analyzer>& texts);
+void find_word(std::vector<Analyzer>& texts);
 
 /*
 
@@ -77,7 +82,7 @@ int main(){
 
 
 //Function to load texts from the file
-void load_texts(std::vector<Analyzer>& load_texts){
+void load_texts(std::vector<Analyzer>& texts){
     Analyzer block;
     int counter = 0;
     std::ifstream fin;
@@ -91,35 +96,108 @@ void load_texts(std::vector<Analyzer>& load_texts){
             continue;
         }
         block.text = text;
-        load_texts.push_back(block);
+        texts.push_back(block);
     }
     fin.close();
 }
 
+//Function to create new text message
+void create_texts(std::vector<Analyzer> &texts)
+{
+}
+
+//Function to show information about chosen text message
+void show_information(std::vector<Analyzer> &texts)
+{
+}
+
+//Function to edit existing text messages
+void edit_message(std::vector<Analyzer> &texts)
+{
+}
+
+//Function to delete selected text message
+void delete_message(std::vector<Analyzer> &texts)
+{
+}
+
+//Funcion to find selected word int all texts and mark it
+void find_word(std::vector<Analyzer> &texts)
+{
+}
+
 //Function to save texts to the file
-void save_text(std::vector<Analyzer>& save_text) {
+void save_text(std::vector<Analyzer>& texts) {
     Analyzer block;
     std::ofstream fout;
 
     fout.open("texts.txt");
-    for (const auto& text_block : save_text) {
+    for (const auto& text_block : texts) {
         fout << text_block.text << "\n";
     }
     fout.close();
 }
 
 // Function to show menu of the programm
-void show_menu(std::vector<Analyzer>& show_menu){
+void show_menu(std::vector<Analyzer>& texts){
+
+    int choise = 0;
+
+    while(true){
+    std::cout << "======TEXT ANALYZATOR======" << "\n" << "1. Create new text message.\n" <<"2. List all masages\n"
+    <<"3. Message information\n" <<  "4. Edit message\n" << "5. Delete message\n" << "6. Find the word\n" << "7. Save and quit\n"
+    << "===========================\n"; 
+
+        std::cout << "Enter what you want to do: ";
+
+        if (!(std::cin >> choise)) {
+            std::cout << "\nWrong input!\n";
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
+
+            switch (choise)
+            {
+            case 1:
+                create_texts(texts);
+                break;
+            case 2:
+                show_texts(texts);
+                break;
+            case 3:
+                show_information(texts);
+                break;
+            case 4:
+                edit_message(texts);
+                break;
+            case 5:
+                delete_message(texts);
+                break;
+            case 6:
+                find_word(texts);
+                break;
+            default:
+                std::cout << "\nWrong input!\n";
+                break;
+            }
+
+ 
+    }
 
 }
 
 
 //Function to show all the saved texts
-void show_texts(std::vector<Analyzer>& show_texts){
+void show_texts(std::vector<Analyzer>& texts){
     Analyzer block;
+    std::string spam = "";
+
     int counter = 0;
-    for(const auto& text_block : show_texts){
+    for(const auto& text_block : texts){
         ++counter;
         std::cout << counter << ". "<< text_block.text<<"\n";
     }
+    std::cout << "\nPress any button ENTER to continue";
+    std::cin >> spam;
 }
