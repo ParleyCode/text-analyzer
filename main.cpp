@@ -143,10 +143,28 @@ void delete_message(std::vector<Analyzer> &texts)
 {
     int choise = 0;
     show_texts(texts);
-    std::cout << "Please enter number which text you want to delete: ";
-    std::cin >> choise;
-    texts.erase(texts.begin() + (choise - 1));
-    save_text(texts);
+    if(texts.empty()){
+        exit;
+    }
+    else{
+        std::cout << "Please enter contact you want to delete: ";
+        while(choise <= 0 || choise >= texts.size()){
+        if(texts.empty()){
+            break;
+        }
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cin >> choise;
+        if(choise <= 0 && choise > texts.size()){
+            std::cout << "Wanna see seg fault?";
+        }
+
+        else{
+            texts.erase(texts.begin() + (choise - 1));
+            save_text(texts);
+        }
+        }
+    }
 }
 
 //Funcion to find selected word int all texts and mark it
