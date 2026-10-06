@@ -7,17 +7,6 @@
 #include <sstream>
 
 
-/*
-
-    Text analyzer must do:
-    1. Input text
-    2. Analyze how much words, symbols
-    3. Output longest and shortest word
-    4. Save text to file, and load it from file
-    5. Ability to edit the text
-    6. Ability to find the word in the text
-
-*/
 
 class Analyzer{
     public:
@@ -54,6 +43,7 @@ class Analyzer{
         }
         return count;
     }
+    //Function to return shortest word in the text
     std::string shortes_word(){
         std::string short_word = "";
         std::string next_word = "";
@@ -69,7 +59,7 @@ class Analyzer{
         }
         return short_word;
     }
-
+    //Function to return the longest word in the text
     std::string longest_word(){
         std::string long_word = "";
         std::string next_word = "";
@@ -78,7 +68,7 @@ class Analyzer{
         std::getline(sw, long_word, ' ');
         sw.clear(); sw.str(text);
         while(std::getline(sw, next_word, ' ')){
-            if(long_word.length() < next_word.length()){
+            if(long_word.length() <= next_word.length()){
                 long_word = next_word;
             }
 
@@ -167,7 +157,8 @@ void show_information(std::vector<Analyzer> &texts)
             std::cout << "Amount of symbols in your text " << texts[choise - 1].count_symbols() << " , amount of words "
             << texts[choise - 1].count_words() << " , shortest word is "
             << "\033[32m" << texts[choise - 1].shortes_word() << "\033[0m , longest word is "
-            <<"\033[31m"<<texts[choise - 1].longest_word() << "\033[0m\n\n";
+            <<"\033[31m"<<texts[choise - 1].longest_word() << "\033[0m\n";
+            std::cout << "---------------------------------------------------------------\n";
         }
     }
 
@@ -203,20 +194,21 @@ void delete_message(std::vector<Analyzer> &texts)
     }
     else{
         std::cout << "Please enter contact you want to delete: ";
-        while(choise <= 0 || choise >= texts.size()){
+        while(choise <= 0 || choise >= (texts.size() + 1)){
         if(texts.empty()){
             break;
         }
         std::cin.clear();
         std::cin.ignore(10000, '\n');
         std::cin >> choise;
-        if(choise <= 0 && choise > texts.size()){
+        if(choise <= 0 || choise > texts.size()){
             std::cout << "Wanna see seg fault?";
         }
 
         else{
             texts.erase(texts.begin() + (choise - 1));
             save_text(texts);
+            break;
         }
         }
     }
@@ -319,6 +311,7 @@ void show_texts(std::vector<Analyzer>& texts){
     std::cin >> spam;
 }
 
+//Function to set all symbols in the text to lower register
 std::string to_lower(std::string text){
     std::transform(text.begin(), text.end(), text.begin(),
         [](unsigned char c) {
