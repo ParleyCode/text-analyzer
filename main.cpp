@@ -4,6 +4,7 @@
 #include <algorithm>
 #include<cctype>
 #include <fstream>
+#include <sstream>
 
 
 /*
@@ -52,6 +53,37 @@ class Analyzer{
             }
         }
         return count;
+    }
+    std::string shortes_word(){
+        std::string short_word = "";
+        std::string next_word = "";
+        std::stringstream sw;
+        sw.str(text);
+        std::getline(sw, short_word, ' ');
+        sw.clear(); sw.str(text);
+        while(std::getline(sw, next_word, ' ')){
+            if(short_word.length() > next_word.length()){
+                short_word = next_word;
+            }
+
+        }
+        return short_word;
+    }
+
+    std::string longest_word(){
+        std::string long_word = "";
+        std::string next_word = "";
+        std::stringstream sw;
+        sw.str(text);
+        std::getline(sw, long_word, ' ');
+        sw.clear(); sw.str(text);
+        while(std::getline(sw, next_word, ' ')){
+            if(long_word.length() < next_word.length()){
+                long_word = next_word;
+            }
+
+        }
+        return long_word;
     }
 };
 
@@ -133,7 +165,9 @@ void show_information(std::vector<Analyzer> &texts)
         else{
             std::cout << "---------------------------------------------------------------\n";
             std::cout << "Amount of symbols in your text " << texts[choise - 1].count_symbols() << " , amount of words "
-            << texts[choise - 1].count_words() << " , shortest word is\t" << " , longest word is\t\n\n";
+            << texts[choise - 1].count_words() << " , shortest word is "
+            << "\033[32m" << texts[choise - 1].shortes_word() << "\033[0m , longest word is "
+            <<"\033[31m"<<texts[choise - 1].longest_word() << "\033[0m\n\n";
         }
     }
 
