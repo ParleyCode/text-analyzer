@@ -65,6 +65,7 @@ void show_information(std::vector<Analyzer>& texts);
 void edit_message(std::vector<Analyzer>& texts);
 void delete_message(std::vector<Analyzer>& texts);
 void find_word(std::vector<Analyzer>& texts);
+std::string to_lower(std::string text);
 
 /*
 
@@ -144,6 +145,7 @@ void delete_message(std::vector<Analyzer> &texts)
     int choise = 0;
     show_texts(texts);
     if(texts.empty()){
+        std::cout << "There is nothing to delete :( ";
         exit;
     }
     else{
@@ -170,6 +172,19 @@ void delete_message(std::vector<Analyzer> &texts)
 //Funcion to find selected word int all texts and mark it
 void find_word(std::vector<Analyzer> &texts)
 {
+    Analyzer text_block;
+    std::string finding_word = "";
+    std::cout << "Please enter which word you want to found: ";
+    std::cin.clear();std::cin.ignore(10000, '\n');
+    std::getline(std::cin, finding_word);
+
+    to_lower(finding_word);
+    for (const auto& word : texts){
+    if(to_lower(word.text).find(finding_word) != std::string::npos){
+                 std::cout << "|----------------------------------------------------------------\n";
+                 std::cout << word.text << "\n\n";
+        }
+    }
 }
 
 //Function to save texts to the file
@@ -249,4 +264,13 @@ void show_texts(std::vector<Analyzer>& texts){
     }
     std::cout << "\nPress any button ENTER to continue";
     std::cin >> spam;
+}
+
+std::string to_lower(std::string text){
+    std::transform(text.begin(), text.end(), text.begin(),
+        [](unsigned char c) {
+            return std::tolower(c);
+        });
+
+    return text;
 }
