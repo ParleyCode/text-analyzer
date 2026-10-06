@@ -104,6 +104,16 @@ void load_texts(std::vector<Analyzer>& texts){
 //Function to create new text message
 void create_texts(std::vector<Analyzer> &texts)
 {
+    Analyzer text_block;
+    std::string new_task = "";
+    std::cout << "Please enter new text message: ";
+    std::cin.clear();
+    std::cin.ignore(10000, '\n');
+    std::getline(std::cin, new_task);
+    text_block.text = new_task;
+    texts.push_back(text_block);
+    save_text(texts);
+
 }
 
 //Function to show information about chosen text message
@@ -177,6 +187,9 @@ void show_menu(std::vector<Analyzer>& texts){
             case 6:
                 find_word(texts);
                 break;
+            case 7:
+                save_text(texts);
+                exit(0);
             default:
                 std::cout << "\nWrong input!\n";
                 break;
