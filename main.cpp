@@ -124,6 +124,18 @@ void show_information(std::vector<Analyzer> &texts)
 //Function to edit existing text messages
 void edit_message(std::vector<Analyzer> &texts)
 {
+    Analyzer text_block;
+    int choise = 0;
+    show_texts(texts);
+    std::string edited_text = "";
+    std::cout << "Please enter which text do you want to edit?: ";
+    std::cin >> choise;
+    std::cout << "Please enter edited text: ";
+    std::cin.clear();std::cin.ignore(10000, '\n');
+    std::getline(std::cin, edited_text);
+    texts[choise - 1].text = edited_text;
+    save_text(texts);
+
 }
 
 //Function to delete selected text message
