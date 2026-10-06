@@ -141,6 +141,12 @@ void edit_message(std::vector<Analyzer> &texts)
 //Function to delete selected text message
 void delete_message(std::vector<Analyzer> &texts)
 {
+    int choise = 0;
+    show_texts(texts);
+    std::cout << "Please enter number which text you want to delete: ";
+    std::cin >> choise;
+    texts.erase(texts.begin() + (choise - 1));
+    save_text(texts);
 }
 
 //Funcion to find selected word int all texts and mark it
