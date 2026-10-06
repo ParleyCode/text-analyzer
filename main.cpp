@@ -53,7 +53,6 @@ class Analyzer{
         }
         return count;
     }
-
 };
 
 void show_texts(std::vector<Analyzer>& texts);
@@ -120,6 +119,26 @@ void create_texts(std::vector<Analyzer> &texts)
 //Function to show information about chosen text message
 void show_information(std::vector<Analyzer> &texts)
 {
+    Analyzer text_block;
+
+    int choise = 0;
+
+    show_texts(texts);
+    while(choise < 1 || choise > texts.size()){
+        std::cout << "About which text you want to see information?: ";
+        std::cin >> choise;
+        if(choise < 1 || choise > texts.size()){
+            std::cout << "Wrong input :(";
+        }
+        else{
+            std::cout << "---------------------------------------------------------------\n";
+            std::cout << "Amount of symbols in your text " << texts[choise - 1].count_symbols() << " , amount of words "
+            << texts[choise - 1].count_words() << " , shortest word is\t" << " , longest word is\t\n\n";
+        }
+    }
+
+
+
 }
 
 //Function to edit existing text messages
